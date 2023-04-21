@@ -3,24 +3,24 @@ using System.ComponentModel.DataAnnotations;
 
 namespace net_ef_videogame
 {
-    [Table("softwarehouses")] // il nome della tabella che sarà associata alla classe SoftwareHouse
+    [Table("softwarehouses")] // the name of the table in the database that will be associated with the SoftwareHouse class
     public class SoftwareHouse 
     {
-        [Key] //  specifica che la proprietà Id è la chiave primaria della tabella
-        [Column("id")] // specifica il nome della colonna nella tabella del database a cui si riferisce la proprietà
+        [Key] // specifies that the Id property is the primary key of the table
+        [Column("id")] // specifies the name of the column in the database table that the property refers to
         public int Id { get; set; } 
 
-        [Column("name")] 
-        [Required] // specifica che il valore della proprietà è obbligatorio
-        [MaxLength(32)] // specifica la lunghezza massima del valore della proprietà
+        [Column("name")]
+        [Required] // specifies that the value of the property is required
+        [MaxLength(32)] // specifies the maximum length of the value of the property
         public string? Name { get; set; } 
 
         [Column("city")] 
         [Required] 
         [MaxLength(64)] 
-        public string? City { get; set; } 
+        public string? City { get; set; }
 
-        // La proprietà Videogames è di tipo List<Videogame> e rappresenta la relazione uno-a-molti tra la tabella softwarehouses e la tabella videogames
-        public List<Videogame>? Videogames { get; set; } // una software house può aver prodotto più videogiochi
+        // The Videogames property is of type List<Videogame> and represents the one-to-many relationship between the softwarehouses table and the videogames table
+        public List<Videogame>? Videogames { get; set; } // a software house can produce multiple videogames
     }
 }

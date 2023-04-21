@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace net_ef_videogame
 {
-    [Table("videogames")] // il nome della tabella che sarà associata alla classe Videogame
+    [Table("videogames")] // Specifies the name of the table that will be associated with the Videogame class
     public class Videogame 
     {
-        [Key] // specifica che la proprietà Id è la chiave primaria della tabella
-        [Column("id")] // specifica il nome della colonna a cui si riferisce la proprietà
+        [Key] // Specifies that the Id property is the primary key of the table
+        [Column("id")] // Specifies the name of the column that the property refers to
         public int Id { get; set; } 
 
-        [Column("name")] 
-        [Required] // specifica che il valore della proprietà è obbligatorio
-        [MaxLength(64)] // specifica la lunghezza massima del valore della proprietà
+        [Column("name")]
+        [Required] // Specifies that the value of the property is required
+        [MaxLength(64)] // Specifies the maximum length of the value of the property
         public string? Name { get; set; } 
 
         [Column("overview")] 
@@ -25,11 +25,11 @@ namespace net_ef_videogame
         [Required] 
         public DateTime ReleaseDate { get; set; }
 
-        [ForeignKey("SoftwareHouse")] // specifica che la proprietà SoftwareHouse è una foreign key che fa riferimento alla classe SoftwareHouse
+        [ForeignKey("SoftwareHouse")] // Specifies that the SoftwareHouse property is a foreign key that references the SoftwareHouse class
         [Column("software_house_id")] 
         [Required] 
-        public int SoftwareHouseId { get; set; } 
+        public int SoftwareHouseId { get; set; }
 
-        public SoftwareHouse? SoftwareHouse { get; set; } // la proprietà SoftwareHouse rappresenta la relazione molti-a-uno tra la tabella videogames e la tabella softwarehouses
+        public SoftwareHouse? SoftwareHouse { get; set; } // The SoftwareHouse property represents the many-to-one relationship between the videogames table and the softwarehouses table
     }
 }
