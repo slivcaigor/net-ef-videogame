@@ -40,6 +40,5 @@ namespace net_ef_videogame
             Console.WriteLine($"Release Date: {ReleaseDate:dd/MM/yyyy}");
             Console.WriteLine($"Software House: {SoftwareHouse?.Name ?? "Unknown"}\n");
         }
-
     }
 }

@@ -15,7 +15,8 @@ namespace net_ef_videogame
                 Console.WriteLine("3. Search for a videogame by name");
                 Console.WriteLine("4. Delete a videogame");
                 Console.WriteLine("5. Insert a new software house");
-                Console.WriteLine("6. Close the program");
+                Console.WriteLine("6. Show games by software house");
+                Console.WriteLine("7. Close the program");
 
                 key = Console.ReadKey(true);
 
@@ -43,6 +44,10 @@ namespace net_ef_videogame
                         break;
                     case '6':
                         Console.Clear();
+                        VideogameManager.ShowGamesBySoftwareHouse();
+                        break;
+                    case '7':
+                        Console.Clear();
                         Console.WriteLine("Goodbye!");
                         Console.ReadLine();
                         return;
@@ -52,8 +57,7 @@ namespace net_ef_videogame
                         break;
                 }
                 Console.WriteLine();
-            } while (key.KeyChar != '5');
-
+            } while (key.KeyChar != '7');
         }
     }
 }

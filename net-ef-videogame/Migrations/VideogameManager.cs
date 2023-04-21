@@ -4,7 +4,6 @@ namespace net_ef_videogame.Migrations
 {
     public class VideogameManager
     {
-
         public static void InsertVideogame()
         {
             using var context = new VideogameDbContext();
@@ -216,5 +215,46 @@ namespace net_ef_videogame.Migrations
             Console.WriteLine("Software house added successfully");
         }
 
+        public static void ShowGamesBySoftwareHouse()
+        {
+            using var context = new VideogameDbContext();
+
+            Console.WriteLine("Select a software house:");
+            var softwareHouses = context.SoftwareHouses.ToList();
+
+            foreach (var softwareHouse in softwareHouses)
+            {
+                Console.WriteLine($"{softwareHouse.Id}. {softwareHouse.Name}");
+            }
+
+            int choice;
+            while (true)
+            {
+                Console.Write($"Enter your choice (1-{softwareHouses.Count}): ");
+                if (int.TryParse(Console.ReadLine(), out choice) && choice >= 1 && choice <= softwareHouses.Count)
+                {
+                    break;
+                }
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+            }
+
+            var selectedSoftwareHouse = softwareHouses[choice - 1];
+
+            Console.WriteLine($"Games by {selectedSoftwareHouse.Name}:\n");
+            var games = context.Videogames.Where(g => g.SoftwareHouse != null && g.SoftwareHouse.Id == selectedSoftwareHouse.Id).ToList();
+
+            if (games.Count == 0)
+            {
+                Console.WriteLine("No games found for this software house.");
+            }
+            else
+            {
+                foreach (var game in games)
+                {
+                    game.PrintDetails();
+                    Console.WriteLine();
+                }
+            }
+        }
     }
 }
