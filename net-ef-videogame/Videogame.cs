@@ -31,5 +31,15 @@ namespace net_ef_videogame
         public int SoftwareHouseId { get; set; }
 
         public SoftwareHouse? SoftwareHouse { get; set; } // The SoftwareHouse property represents the many-to-one relationship between the videogames table and the softwarehouses table
+
+        public void PrintDetails()
+        {
+            Console.WriteLine($"ID: {Id}");
+            Console.WriteLine($"Name: {Name}");
+            Console.WriteLine($"Overview: {Overview}");
+            Console.WriteLine($"Release Date: {ReleaseDate:dd/MM/yyyy}");
+            Console.WriteLine($"Software House: {SoftwareHouse?.Name ?? "Unknown"}");
+        }
+
     }
 }

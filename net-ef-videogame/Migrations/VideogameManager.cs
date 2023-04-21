@@ -1,4 +1,6 @@
-﻿namespace net_ef_videogame.Migrations
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace net_ef_videogame.Migrations
 {
     public class VideogameManager
     {
@@ -86,7 +88,28 @@
 
         public static void SearchVideogameById()
         {
+            using var context = new VideogameDbContext();
+
+            Console.Write("Insert the videogame ID: ");
+            string gameId = Console.ReadLine() ?? throw new ArgumentNullException(nameof(gameId));
+
+            if (!int.TryParse(gameId, out int id))
+            {
+                Console.WriteLine("Invalid input. Please enter a valid ID.");
+                return;
+            }
+
+            var videogame = context.Videogames.Include(v => v.SoftwareHouse).FirstOrDefault(v => v.Id == id);
+
+            if (videogame == null)
+            {
+                Console.WriteLine($"Videogame with ID {id} not found.");
+                return;
+            }
+
+            videogame.PrintDetails();
         }
+
 
         public static void SearchVideogameByName()
         { 
