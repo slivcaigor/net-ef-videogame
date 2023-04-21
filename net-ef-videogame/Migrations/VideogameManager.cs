@@ -110,10 +110,30 @@ namespace net_ef_videogame.Migrations
             videogame.PrintDetails();
         }
 
-
         public static void SearchVideogameByName()
-        { 
+        {
+            using var context = new VideogameDbContext();
+
+            Console.Write("Insert the name of the videogame to search: ");
+            string searchName = Console.ReadLine() ?? throw new ArgumentNullException(nameof(searchName));
+
+            var videogames = context.Videogames
+                .Where(m => m.Name != null && m.Name.Contains(searchName))
+                .Include(m => m.SoftwareHouse)
+                .ToList();
+
+            if (videogames.Count == 0)
+            {
+                Console.WriteLine($"No videogame found with name '{searchName}'");
+                return;
+            }
+
+            foreach (var videogame in videogames)
+            {
+                videogame.PrintDetails();
+            }
         }
+
 
         public static void DeleteVideogame()
         { 
