@@ -134,10 +134,36 @@ namespace net_ef_videogame.Migrations
             }
         }
 
-
         public static void DeleteVideogame()
-        { 
+        {
+            using var context = new VideogameDbContext();
+            Console.Write("Enter the ID of the videogame to delete: ");
+
+            int id;
+            while (true)
+            {
+                string gameId = Console.ReadLine() ?? throw new ArgumentNullException(nameof(gameId));
+
+                if (int.TryParse(gameId, out id))
+                    break;
+
+                Console.WriteLine("Invalid input. Please enter a valid ID.");
+            }
+
+            var videogame = context.Videogames.Find(id);
+
+            if (videogame == null)
+            {
+                Console.WriteLine($"Error: videogame with ID {id} not found");
+                return;
+            }
+
+            context.Videogames.Remove(videogame);
+            context.SaveChanges();
+
+            Console.WriteLine($"Videogame {videogame.Name} with ID {videogame.Id} has been deleted.");
         }
+
 
         public static void InsertSoftwareHouse()
         {
